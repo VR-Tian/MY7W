@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MY7W.Domain.WebModel;
 
 namespace MY7W.ADONETRespository
 {
@@ -13,6 +14,12 @@ namespace MY7W.ADONETRespository
         {
             service = new ADONET.SQLHelper("");
         }
+
+        public List<UserInfo> ExecuteGetDataOfParam(string sqlparam)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ExecuteInsetModel(MY7W.Domain.WebModel.UserInfo model)
         {
             throw new NotImplementedException();

@@ -8,6 +8,7 @@ namespace MY7W.Datafactory
 {
     public static class DatafactoryMamager
     {
+        private DbContext
        public static object GetRespository(string name)
         {
             switch (name)

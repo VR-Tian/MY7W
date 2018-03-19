@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StackExchange.Profiling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,21 @@ namespace MY7W.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            StackExchange.Profiling.EntityFramework6.MiniProfilerEF6.Initialize();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)//这里是允许本地访问启动监控,可不写
+            {
+                MiniProfiler.Start();
+
+            }
+        }
+
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
         }
     }
 }

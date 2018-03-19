@@ -8,11 +8,19 @@ namespace MY7W.EntityFrameworkRespository
 {
     public class RespositoryBase<T> where T : class
     {
-        private MY7W.EntityFramework.MY7WModel context;
+        /// <summary>
+        ///当前实例上下文
+        /// </summary>
+        protected readonly MY7W.EntityFramework.MY7WModel context;
         public RespositoryBase()
         {
             context = new EntityFramework.MY7WModel();
         }
+        /// <summary>
+        /// Add model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool ExecuteInsetModel(T model)
         {
             context.Set<T>().Add(model);

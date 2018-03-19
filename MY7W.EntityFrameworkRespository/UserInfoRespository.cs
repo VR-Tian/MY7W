@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace MY7W.EntityFrameworkRespository
 {
-    public class UserInfoRespository : RespositoryBase<MY7W.Domain.WebModel.UserInfo>,IUserInfoRespository
+    public class UserInfoRespository : RespositoryBase<MY7W.Domain.WebModel.UserInfo>, IUserInfoRespository
     {
-        
+        public List<UserInfo> ExecuteGetDataOfParam(string sqlparam)
+        {
+            return context.UserInfo.Where(u => sqlparam.Contains(u.Name)).ToList();
+        }
     }
 }

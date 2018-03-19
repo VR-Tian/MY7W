@@ -8,6 +8,6 @@ namespace MY7W.Respositories
 {
     public interface IUserInfoRespository: IRespository<MY7W.Domain.WebModel.UserInfo>
     {
-
+        List<MY7W.Domain.WebModel.UserInfo> ExecuteGetDataOfParam(string sqlparam);
     }
 }

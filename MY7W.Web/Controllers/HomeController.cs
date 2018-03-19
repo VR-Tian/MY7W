@@ -23,9 +23,11 @@ namespace MY7W.Web.Controllers
         }
 
         // GET: Home/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string name)
         {
-            return View();
+            var temp = userService.ExecuteGetDataOfParam(name).FirstOrDefault();
+            
+            return View(temp);
         }
 
         // GET: Home/Create
