@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,15 @@ namespace MY7W.EntityFrameworkRespository
 {
     public class RespositoryBase<T> where T : class
     {
+      
         /// <summary>
         ///当前实例上下文
         /// </summary>
-        protected readonly MY7W.EntityFramework.MY7WModel context;
-        public RespositoryBase()
+        protected readonly DbContext context;
+        public RespositoryBase(MY7W.Datafactory.DatafactoryMamager datafactory)
         {
-            context = new EntityFramework.MY7WModel();
+            //context = new EntityFramework.MY7WModel();
+            context = datafactory.dbContext;
         }
         /// <summary>
         /// Add model

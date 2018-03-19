@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MY7W.Datafactory\MY7W.Datafactory.csproj">
+      <Project>{9a80998b-5e86-4299-89ff-2dfad0fbfafc}</Project>
+      <Name>MY7W.Datafactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MY7W.Domain\MY7W.Domain.csproj">
       <Project>{62103B4E-A33B-4E82-B576-1B5FA064FA11}</Project>
       <Name>MY7W.Domain</Name>

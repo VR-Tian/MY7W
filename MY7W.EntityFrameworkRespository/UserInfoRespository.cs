@@ -10,9 +10,13 @@ namespace MY7W.EntityFrameworkRespository
 {
     public class UserInfoRespository : RespositoryBase<MY7W.Domain.WebModel.UserInfo>, IUserInfoRespository
     {
+        public UserInfoRespository(MY7W.Datafactory.DatafactoryMamager datafactory) :base(datafactory)
+        {
+
+        }
         public List<UserInfo> ExecuteGetDataOfParam(string sqlparam)
         {
-            return context.UserInfo.Where(u => sqlparam.Contains(u.Name)).ToList();
+            return context.Set<MY7W.Domain.WebModel.UserInfo>().Where(u => sqlparam.Contains(u.Name)).ToList();
         }
     }
 }

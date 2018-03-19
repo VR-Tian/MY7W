@@ -9,10 +9,12 @@ namespace MY7W.Application
     public class UserInfoService
     {
         public MY7W.Respositories.IUserInfoRespository Context { get; set; }
+        private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
         {
+            DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Context = new EntityFrameworkRespository.UserInfoRespository();
-            Context = MY7W.Datafactory.DatafactoryMamager.GetRespository("EF") as Respositories.IUserInfoRespository;
+            Context = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);
         }
 
         public List<MY7W.Domain.WebModel.UserInfo> ExecuteQuertAll()
