@@ -16,7 +16,7 @@ namespace MY7W.EntityFrameworkRespository
         }
         public List<UserInfo> ExecuteGetDataOfParam(string sqlparam)
         {
-            return context.Set<MY7W.Domain.WebModel.UserInfo>().Where(u => sqlparam.Contains(u.Name)).ToList();
+            return DBSet.Where(u => sqlparam.Contains(u.Name)).ToList();
         }
     }
 }

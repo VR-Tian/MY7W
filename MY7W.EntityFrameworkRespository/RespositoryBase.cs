@@ -9,15 +9,18 @@ namespace MY7W.EntityFrameworkRespository
 {
     public class RespositoryBase<T> where T : class
     {
-      
+
         /// <summary>
         ///当前实例上下文
         /// </summary>
-        protected readonly DbContext context;
+        protected DbContext Context { get; private set; }
+        protected DbSet<T> DBSet { get; private set; }
         public RespositoryBase(MY7W.Datafactory.DatafactoryMamager datafactory)
         {
+
             //context = new EntityFramework.MY7WModel();
-            context = datafactory.dbContext;
+            Context = datafactory.dbContext;
+            DBSet = Context.Set<T>();
         }
         /// <summary>
         /// Add model
@@ -26,20 +29,20 @@ namespace MY7W.EntityFrameworkRespository
         /// <returns></returns>
         public bool ExecuteInsetModel(T model)
         {
-            context.Set<T>().Add(model);
-            return context.SaveChanges() > 0;
+            DBSet.Add(model);
+            return Context.SaveChanges() > 0;
         }
 
         public List<T> ExecuteQuertAll()
         {
-            return context.Set<T>().AsNoTracking().ToList();
+            return DBSet.AsNoTracking().ToList();
         }
 
         public bool ExecuteUpdateModel(T model)
         {
-            context.Set<T>().Attach(model);
-            context.Entry(model).State = System.Data.Entity.EntityState.Modified;
-            return context.SaveChanges() > 0;
+            DBSet.Attach(model);
+            Context.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            return Context.SaveChanges() > 0;
         }
 
     }
