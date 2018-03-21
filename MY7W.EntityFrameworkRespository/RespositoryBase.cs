@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,9 +36,9 @@ namespace MY7W.EntityFrameworkRespository
             return Context.SaveChanges() > 0;
         }
 
-        public List<T> ExecuteQuertAll()
+        public virtual IQueryable<T> ExecuteQuertAll(Expression<Func<T, bool>> where)
         {
-            return DBSet.AsNoTracking().ToList();
+            return DBSet.Where(where).AsNoTracking();
         }
 
         public bool ExecuteUpdateModel(T model)
@@ -45,5 +48,26 @@ namespace MY7W.EntityFrameworkRespository
             return Context.SaveChanges() > 0;
         }
 
+        /// <summary>
+        /// 返回无跟踪状态的全部数据
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<T> GetAll()
+        {
+            return DBSet.AsNoTracking();
+        }
+
+        /// <summary>
+        /// SQL参数化延迟查询
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public virtual DbRawSqlQuery ExecuteBy(Type t, string sql, params SqlParameter[] parameters)
+        {
+            this.Context.Database.CommandTimeout = 120;
+            return Context.Database.SqlQuery(t, sql, parameters);
+        }
     }
 }

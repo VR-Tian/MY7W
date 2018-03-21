@@ -17,16 +17,24 @@ namespace MY7W.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<UserInfo> temp = userService.ExecuteQuertAll();
-           
-            return View(temp);
+            try
+            {
+                List<UserInfo> temp = userService.ExecuteQuertAll();
+
+                return View(temp);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         // GET: Home/Details/5
         public ActionResult Details(string name)
         {
-            var temp = userService.ExecuteGetDataOfParam(name).FirstOrDefault();
-            
+            var temp = userService.ExecuteGetDataOfParam(t => t.Name == name).FirstOrDefault();
+
             return View(temp);
         }
 
@@ -38,13 +46,17 @@ namespace MY7W.Web.Controllers
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(MY7W.Domain.WebModel.UserInfo model)
         {
             try
             {
                 // TODO: Add insert logic here
+                if (userService.ExecuteInsertModel(model))
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View();
             }
             catch
             {

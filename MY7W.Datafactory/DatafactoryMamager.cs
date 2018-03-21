@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Activities.Statements;
 using System.Data.Entity;
+using System.Transactions;
 
 namespace MY7W.Datafactory
 {
-    public class DatafactoryMamager: Disposable
+    public class DatafactoryMamager: Disposable, IDatabaseFactory
     {
         public enum ContextType
         {
@@ -21,7 +21,11 @@ namespace MY7W.Datafactory
 
         public DbContext dbContext { get; private set; }
 
-        
+        protected override void DisposeCore()
+        {
+            base.DisposeCore();
+            dbContext.Dispose();
+        }
 
         /// <summary>
         /// 单元提交
@@ -34,20 +38,26 @@ namespace MY7W.Datafactory
         /// <summary>
         /// 单元提交事物提交
         /// </summary>
-        //public void Commit(bool isTransaction)
-        //{
-        //    #region 事物提交
-        //    using (TransactionScope scope = new TransactionScope())
-        //    {
-        //        this.Commit();
-        //        //dataContext.SaveChanges();
-        //        scope.Complete();
-        //    }
-        //    #endregion
-        //}
-
+        public void Commit(bool isTransaction)
+        {
+            #region 事物提交
+            using (TransactionScope scope = new TransactionScope())
+            {
+                this.Commit();
+                //dataContext.SaveChanges();
+                scope.Complete();
+            }
+            #endregion
+        }
+      
 
     }
+    public interface IDatabaseFactory: IDisposable
+    {
+        void Commit();
+        void Commit(bool isTransaction);
+    }
+
 
     public class Disposable : IDisposable
     {
@@ -75,6 +85,7 @@ namespace MY7W.Datafactory
 
         protected virtual void DisposeCore()
         {
+
         }
     }
 }

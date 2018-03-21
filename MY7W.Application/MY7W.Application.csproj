@@ -44,10 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MY7W.ADONETRespository\MY7W.ADONETRespository.csproj">
-      <Project>{8a58cbea-7f02-4d97-8f21-e1494b8c923a}</Project>
-      <Name>MY7W.ADONETRespository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MY7W.Datafactory\MY7W.Datafactory.csproj">
       <Project>{9a80998b-5e86-4299-89ff-2dfad0fbfafc}</Project>
       <Name>MY7W.Datafactory</Name>
