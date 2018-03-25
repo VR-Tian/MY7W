@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MY7W.Domain.WebModel
 {
-    public class UserInfo
+    public class OrderInfo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
-        public string Address { get; set; }
-        public string Identification { get; set; }
-       
+        public Guid UsersID { get; set; }
+        public DateTime CreateTime { get; set; }
+        public bool IsDelete { get; set; }
+        //[ForeignKey("UsersId")]
+        //public UserInfo User { get; set; }
     }
 }

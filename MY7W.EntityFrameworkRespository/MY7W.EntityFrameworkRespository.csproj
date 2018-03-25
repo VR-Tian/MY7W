@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderInfoRespository.cs" />
     <Compile Include="RespositoryBase.cs" />
     <Compile Include="UserInfoRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

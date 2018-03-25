@@ -23,6 +23,7 @@
         //的详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=390109。
 
          public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<OrderInfo> OrderInfo { get; set; }
     }
 
    
