@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{40BDCCB7-9250-4695-A998-73A58C4A6FD5}</ProjectGuid>
+    <ProjectGuid>{4EF3DF2B-434D-4953-BBFD-CE306BB34786}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MY7W.Application</RootNamespace>
-    <AssemblyName>MY7W.Application</AssemblyName>
+    <RootNamespace>MY7W.WCFServices</RootNamespace>
+    <AssemblyName>MY7W.WCFServices</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,39 +32,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrderInfoServices.cs" />
-    <Compile Include="UserInfoService.cs" />
+    <Compile Include="IUserInfoWcfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MY7W.Datafactory\MY7W.Datafactory.csproj">
-      <Project>{9a80998b-5e86-4299-89ff-2dfad0fbfafc}</Project>
-      <Name>MY7W.Datafactory</Name>
-    </ProjectReference>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MY7W.Domain\MY7W.Domain.csproj">
       <Project>{62103b4e-a33b-4e82-b576-1b5fa064fa11}</Project>
       <Name>MY7W.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MY7W.EntityFrameworkRespository\MY7W.EntityFrameworkRespository.csproj">
-      <Project>{1e335b3a-ecd3-46cf-840e-4c7ca5cacb08}</Project>
-      <Name>MY7W.EntityFrameworkRespository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MY7W.Respositories\MY7W.Respositories.csproj">
-      <Project>{6de12586-9148-4d37-86bf-c4ba5a26fe60}</Project>
-      <Name>MY7W.Respositories</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MY7W.WCFServices\MY7W.WCFServices.csproj">
-      <Project>{4ef3df2b-434d-4953-bbfd-ce306bb34786}</Project>
-      <Name>MY7W.WCFServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

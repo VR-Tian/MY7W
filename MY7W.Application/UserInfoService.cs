@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MY7W.Application
 {
-    public class UserInfoService
+    public class UserInfoService:MY7W.WCFServices.IUserInfoWcfService
     {
         public MY7W.Respositories.IUserInfoRespository Server { get; set; }
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
