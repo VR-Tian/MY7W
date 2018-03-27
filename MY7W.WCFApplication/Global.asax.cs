@@ -14,7 +14,7 @@ namespace MY7W.WCFApplication
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            Mapper.Initialize(pro => pro.AddProfile<ProfileManager>());
+            Mapper.Initialize(pro => pro.AddProfile<ProfileManager>()); 
         }
 
         protected void Session_Start(object sender, EventArgs e)
