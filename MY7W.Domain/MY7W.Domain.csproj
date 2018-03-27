@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelMap\UserInfoDto.cs" />
     <Compile Include="WebModel\OrderInfo.cs" />
     <Compile Include="WebModel\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

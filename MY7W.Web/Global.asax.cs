@@ -1,4 +1,6 @@
-﻿using StackExchange.Profiling;
+﻿using AutoMapper;
+using MY7W.Application.ModelProfile;
+using StackExchange.Profiling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace MY7W.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             StackExchange.Profiling.EntityFramework6.MiniProfilerEF6.Initialize();
+            Mapper.Initialize(pro => pro.AddProfile<ProfileManager>());
         }
 
         protected void Application_BeginRequest()

@@ -4,17 +4,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MY7W.Application.ModelProfile;
+using MY7W.Domain.ModelMap;
+using MY7W.WCFServices;
 
 namespace MY7W.Application
 {
-    public class UserInfoService:MY7W.WCFServices.IUserInfoWcfService
+    public class UserInfoService : MY7W.WCFServices.IUserInfoWcfService
     {
         public MY7W.Respositories.IUserInfoRespository Server { get; set; }
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
-            //Context = new EntityFrameworkRespository.UserInfoRespository();
             Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);
         }
 
@@ -54,6 +57,12 @@ namespace MY7W.Application
             {
                 throw ex;
             }
+        }
+
+        List<UserInfoDto> IUserInfoWcfService.ExecuteQuertAll()
+        {
+            var temp = ExecuteQuertAll();
+            return Mapper.Map<List<MY7W.Domain.ModelMap.UserInfoDto>>(temp);
         }
     }
 }
