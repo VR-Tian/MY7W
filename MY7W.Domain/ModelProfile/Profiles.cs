@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MY7W.Application.ModelProfile
+namespace MY7W.Domain.ModelProfile
 {
-    public class ProfileManager : Profile
+    public class Profiles : Profile
     {
-        public ProfileManager()
+        public Profiles()
         {
-            base.CreateMap<MY7W.Domain.WebModel.UserInfo, MY7W.Domain.ModelMap.UserInfoDto>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
+            base.CreateMap<MY7W.Domain.Model.UserInfo, MY7W.Domain.ModelMap.UserInfoDto>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Identification, opt => opt.MapFrom(src => src.Identification));
 
         }

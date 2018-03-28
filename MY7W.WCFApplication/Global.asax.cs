@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using MY7W.Application.ModelProfile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using MY7W.Domain.ModelProfile;
 
 namespace MY7W.WCFApplication
 {
@@ -14,7 +14,7 @@ namespace MY7W.WCFApplication
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            Mapper.Initialize(pro => pro.AddProfile<ProfileManager>()); 
+            Mapper.Initialize(pro => pro.AddProfile<Profiles>()); 
         }
 
         protected void Session_Start(object sender, EventArgs e)

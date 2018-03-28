@@ -7,7 +7,7 @@ using MY7W.Datafactory;
 
 namespace MY7W.EntityFrameworkRespository
 {
-    public class OrderInfoRespository : RespositoryBase<MY7W.Domain.WebModel.OrderInfo>, MY7W.Respositories.IOrderInfoRespository
+    public class OrderInfoRespository : RespositoryBase<MY7W.Domain.Model.OrderInfo>, MY7W.Respositories.IOrderInfoRespository
     {
         public OrderInfoRespository(DatafactoryMamager datafactory) : base(datafactory)
         {

@@ -1,6 +1,6 @@
 ﻿namespace MY7W.EntityFramework
 {
-    using MY7W.Domain.WebModel;
+    using MY7W.Domain.Model;
     using System;
     using System.Data.Entity;
     using System.Linq;

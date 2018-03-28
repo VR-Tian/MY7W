@@ -1,4 +1,4 @@
-﻿using MY7W.Domain.WebModel;
+﻿using MY7W.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +46,7 @@ namespace MY7W.Web.Controllers
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(MY7W.Domain.WebModel.UserInfo model)
+        public ActionResult Create(MY7W.Domain.Model.UserInfo model)
         {
             try
             {

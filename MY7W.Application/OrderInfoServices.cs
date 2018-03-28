@@ -17,7 +17,7 @@ namespace MY7W.Application
             Server = new MY7W.EntityFrameworkRespository.OrderInfoRespository(DatafactoryMamager);
         }
 
-        public List<MY7W.Domain.WebModel.OrderInfo> ExecuteQuertAll()
+        public List<MY7W.Domain.Model.OrderInfo> ExecuteQuertAll()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace MY7W.Application
         }
 
 
-        public bool ExecuteInsertModel(MY7W.Domain.WebModel.OrderInfo model)
+        public bool ExecuteInsertModel(MY7W.Domain.Model.OrderInfo model)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace MY7W.Application
         }
 
 
-        public List<MY7W.Domain.WebModel.OrderInfo> ExecuteGetDataOfParam(Expression<Func<MY7W.Domain.WebModel.OrderInfo, bool>> where)
+        public List<MY7W.Domain.Model.OrderInfo> ExecuteGetDataOfParam(Expression<Func<MY7W.Domain.Model.OrderInfo, bool>> where)
         {
             try
             {

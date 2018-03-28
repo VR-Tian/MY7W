@@ -93,7 +93,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutoMapConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -103,6 +102,10 @@
     <ProjectReference Include="..\MY7W.Application\MY7W.Application.csproj">
       <Project>{40bdccb7-9250-4695-a998-73a58c4a6fd5}</Project>
       <Name>MY7W.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MY7W.Domain\MY7W.Domain.csproj">
+      <Project>{62103b4e-a33b-4e82-b576-1b5fa064fa11}</Project>
+      <Name>MY7W.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MY7W.WCFServices\MY7W.WCFServices.csproj">
       <Project>{4ef3df2b-434d-4953-bbfd-ce306bb34786}</Project>

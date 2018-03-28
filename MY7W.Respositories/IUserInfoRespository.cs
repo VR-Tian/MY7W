@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MY7W.Respositories
 {
-    public interface IUserInfoRespository: IRespository<MY7W.Domain.WebModel.UserInfo>
+    public interface IUserInfoRespository: IRespository<MY7W.Domain.Model.UserInfo>
     {
  
     }

@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using MY7W.Application.ModelProfile;
 using MY7W.Domain.ModelMap;
 using MY7W.WCFServices;
 
@@ -21,7 +20,7 @@ namespace MY7W.Application
             Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);
         }
 
-        public List<MY7W.Domain.WebModel.UserInfo> ExecuteQuertAll()
+        public List<MY7W.Domain.Model.UserInfo> ExecuteQuertAll()
         {
             try
             {
@@ -34,7 +33,7 @@ namespace MY7W.Application
         }
 
 
-        public bool ExecuteInsertModel(MY7W.Domain.WebModel.UserInfo model)
+        public bool ExecuteInsertModel(MY7W.Domain.Model.UserInfo model)
         {
             try
             {
@@ -47,7 +46,7 @@ namespace MY7W.Application
         }
 
 
-        public List<MY7W.Domain.WebModel.UserInfo> ExecuteGetDataOfParam(Expression<Func<MY7W.Domain.WebModel.UserInfo, bool>> where)
+        public List<MY7W.Domain.Model.UserInfo> ExecuteGetDataOfParam(Expression<Func<MY7W.Domain.Model.UserInfo, bool>> where)
         {
             try
             {
