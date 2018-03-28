@@ -11,6 +11,7 @@ namespace MY7W.Datafactory
             MY8BEFDB,
             MY7WEFDB,
         }
+
         public DatafactoryMamager(ContextType contextType)
         {
             if (contextType == ContextType.MY7WEFDB)

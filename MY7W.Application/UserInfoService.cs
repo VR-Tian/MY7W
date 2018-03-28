@@ -17,7 +17,9 @@ namespace MY7W.Application
         public UserInfoService()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
-            Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);
+            //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
+
+            Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager,MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
         }
 
         public List<MY7W.Domain.Model.UserInfo> ExecuteQuertAll()
