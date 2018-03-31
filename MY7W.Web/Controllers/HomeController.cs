@@ -1,5 +1,4 @@
-﻿using MY7W.Domain.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,7 +18,7 @@ namespace MY7W.Web.Controllers
         {
             try
             {
-                List<UserInfo> temp = userService.ExecuteQuertAll();
+                var temp = AutoMapper.Mapper.Map<List<MY7W.Web.Models.UserInfoViewModel>>(userService.ExecuteQuertAll());
 
                 return View(temp);
             }
@@ -27,15 +26,15 @@ namespace MY7W.Web.Controllers
             {
                 throw;
             }
-            
+
         }
 
         // GET: Home/Details/5
         public ActionResult Details(string name)
         {
-            var temp = userService.ExecuteGetDataOfParam(t => t.Name == name).FirstOrDefault();
+            //var temp = userService.ExecuteQuertAll(t => t.Name == name).FirstOrDefault();
 
-            return View(temp);
+            return View();
         }
 
         // GET: Home/Create
@@ -46,7 +45,7 @@ namespace MY7W.Web.Controllers
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(MY7W.Domain.Model.UserInfo model)
+        public ActionResult Create(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
         {
             try
             {

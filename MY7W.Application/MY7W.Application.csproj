@@ -61,6 +61,10 @@
       <Project>{1e335b3a-ecd3-46cf-840e-4c7ca5cacb08}</Project>
       <Name>MY7W.EntityFrameworkRespository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MY7W.ModelDto\MY7W.ModelDto.csproj">
+      <Project>{88a6a2de-ccfa-4b81-9809-41f43f39f5ab}</Project>
+      <Name>MY7W.ModelDto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MY7W.RepositoryFactory\MY7W.RepositoryFactory.csproj">
       <Project>{e5318a64-b60b-4acc-b91e-796f10d74ba9}</Project>
       <Name>MY7W.RepositoryFactory</Name>

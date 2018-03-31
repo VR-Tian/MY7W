@@ -5,28 +5,28 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using MY7W.Domain.ModelMap;
 using MY7W.WCFServices;
 
 namespace MY7W.Application
 {
     public class UserInfoService : MY7W.WCFServices.IUserInfoWcfService
     {
-        public MY7W.Respositories.IUserInfoRespository Server { get; set; }
+        public MY7W.Respositories.IUserInfoRespository userInfoServer { get; set; }
+
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
 
-            Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager,MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
+            userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
         }
 
-        public List<MY7W.Domain.Model.UserInfo> ExecuteQuertAll()
+        public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll()
         {
             try
             {
-                return Server.ExecuteQuertAll(T => T.Id != null).ToList();
+                return userInfoServer.ExecuteQuertAll1(x => x.Name != string.Empty);
             }
             catch (Exception ex)
             {
@@ -35,11 +35,13 @@ namespace MY7W.Application
         }
 
 
-        public bool ExecuteInsertModel(MY7W.Domain.Model.UserInfo model)
+        public bool ExecuteInsertModel(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
         {
             try
             {
-                return Server.ExecuteInsetModel(model);
+                var newModel = Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto, MY7W.Domain.Model.UserInfo>(model);
+                newModel.Sys_CreatTime = DateTime.Now;
+                return userInfoServer.ExecuteInsetModel(newModel);
             }
             catch (Exception ex)
             {
@@ -48,22 +50,11 @@ namespace MY7W.Application
         }
 
 
-        public List<MY7W.Domain.Model.UserInfo> ExecuteGetDataOfParam(Expression<Func<MY7W.Domain.Model.UserInfo, bool>> where)
-        {
-            try
-            {
-                return Server.ExecuteQuertAll(where).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        List<UserInfoDto> IUserInfoWcfService.ExecuteQuertAll()
+       
+        List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> IUserInfoWcfService.ExecuteQuertAll()
         {
             var temp = ExecuteQuertAll();
-            return Mapper.Map<List<MY7W.Domain.ModelMap.UserInfoDto>>(temp);
+            return temp;
         }
     }
 }

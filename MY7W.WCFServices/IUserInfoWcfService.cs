@@ -15,6 +15,6 @@ namespace MY7W.WCFServices
     public interface IUserInfoWcfService
     {
         [OperationContract]
-        List<MY7W.Domain.ModelMap.UserInfoDto> ExecuteQuertAll();
+        List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll();
     }
 }

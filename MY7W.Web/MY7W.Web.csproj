@@ -122,11 +122,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Profiles.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MY7W.Application\MY7W.Application.csproj">
@@ -155,6 +156,14 @@
     <ProjectReference Include="..\MY7W.Domain\MY7W.Domain.csproj">
       <Project>{62103b4e-a33b-4e82-b576-1b5fa064fa11}</Project>
       <Name>MY7W.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MY7W.ModelDto\MY7W.ModelDto.csproj">
+      <Project>{88a6a2de-ccfa-4b81-9809-41f43f39f5ab}</Project>
+      <Name>MY7W.ModelDto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MY7W.Tools\MY7W.Tools.csproj">
+      <Project>{c875d17b-e498-4cb1-8880-6d22f1bee960}</Project>
+      <Name>MY7W.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

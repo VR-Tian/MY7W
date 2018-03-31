@@ -17,6 +17,8 @@ namespace MY7W.Domain.Model
         public string Password { get; set; }
         public string Address { get; set; }
         public string Identification { get; set; }
-       
+        public bool Sys_IsDelete { get; set; }
+        public DateTime Sys_CreatTime { get; set; }
+        public ICollection<OrderInfo> OrderInfo { get; set; }
     }
 }

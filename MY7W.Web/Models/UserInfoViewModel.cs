@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace MY7W.Domain.ModelMap
+namespace MY7W.Web.Models
 {
-    public class UserInfoDto
+    public class UserInfoViewModel
     {
         public string UserName { get; set; }
         public string Identification { get; set; }

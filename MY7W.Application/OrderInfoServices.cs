@@ -14,7 +14,8 @@ namespace MY7W.Application
         public OrderInfoServices()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
-            Server = new MY7W.EntityFrameworkRespository.OrderInfoRespository(DatafactoryMamager);
+
+            Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
         }
 
         public List<MY7W.Domain.Model.OrderInfo> ExecuteQuertAll()

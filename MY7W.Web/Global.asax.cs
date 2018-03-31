@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MY7W.Domain.ModelProfile;
 using StackExchange.Profiling;
 using System;
 using System.Collections.Generic;

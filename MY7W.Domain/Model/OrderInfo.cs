@@ -16,7 +16,8 @@ namespace MY7W.Domain.Model
         public Guid UsersID { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsDelete { get; set; }
-        //[ForeignKey("UsersId")]
-        //public UserInfo User { get; set; }
+        public Guid UserInfoId { get; set; }
+        [ForeignKey("UserInfoId")]
+        public UserInfo UserInfo { get; set; }
     }
 }
