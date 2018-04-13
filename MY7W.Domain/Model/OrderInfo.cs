@@ -13,11 +13,10 @@ namespace MY7W.Domain.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        public Guid UsersID { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsDelete { get; set; }
         public Guid UserInfoId { get; set; }
         [ForeignKey("UserInfoId")]
-        public UserInfo UserInfo { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

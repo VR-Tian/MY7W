@@ -6,58 +6,41 @@ using System.Web.Mvc;
 
 namespace MY7W.Web.Controllers
 {
-    public class HomeController : Controller
+    public class OrderController : Controller
     {
-        private MY7W.Application.UserInfoService userService;
-        public HomeController()
+        private MY7W.Application.OrderInfoServices oderService;
+        public OrderController():base()
         {
-            userService = new Application.UserInfoService();
+            oderService = new Application.OrderInfoServices();
         }
-        // GET: Home
-        public ActionResult Index()
+        // GET: Order
+        public ActionResult Index(Guid id)
         {
-            try
-            {
-                var allmodel = userService.ExecuteQuertAll();
-                //var orderList = allmodel[0].OrderInfo.ToList();
-                var temp = AutoMapper.Mapper.Map<List<MY7W.Web.Models.UserInfoViewModel>>(allmodel);
-
-                return View(temp);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
+          var temp=  AutoMapper.Mapper.Map<List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>>(oderService.ExecuteQuertAll(id));
+            return View(temp);
         }
 
-        // GET: Home/Details/5
-        public ActionResult Details(string name)
+        // GET: Order/Details/5
+        public ActionResult Details(int id)
         {
-            //var temp = userService.ExecuteQuertAll(t => t.Name == name).FirstOrDefault();
-
             return View();
         }
 
-        // GET: Home/Create
+        // GET: Order/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Home/Create
+        // POST: Order/Create
         [HttpPost]
-        public ActionResult Create(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
-                if (userService.ExecuteInsertModel(model))
-                {
-                    return RedirectToAction("Index");
-                }
 
-                return View();
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -65,13 +48,13 @@ namespace MY7W.Web.Controllers
             }
         }
 
-        // GET: Home/Edit/5
-        public ActionResult Edit(Guid id)
+        // GET: Order/Edit/5
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Home/Edit/5
+        // POST: Order/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -87,13 +70,13 @@ namespace MY7W.Web.Controllers
             }
         }
 
-        // GET: Home/Delete/5
+        // GET: Order/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Home/Delete/5
+        // POST: Order/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -52,11 +52,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MY7W.ModelDto\MY7W.ModelDto.csproj">
-      <Project>{88a6a2de-ccfa-4b81-9809-41f43f39f5ab}</Project>
-      <Name>MY7W.ModelDto</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

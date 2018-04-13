@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 
 namespace MY7W.Application
 {
@@ -18,11 +19,11 @@ namespace MY7W.Application
             Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
         }
 
-        public List<MY7W.Domain.Model.OrderInfo> ExecuteQuertAll()
+        public List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto> ExecuteQuertAll(Guid id)
         {
             try
             {
-                return Server.ExecuteQuertAll(T => T.Id != null).ToList();
+                return Server.ExecuteQuertAll(T => T.UserInfoId == id).ProjectTo<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>().ToList();
             }
             catch (Exception ex)
             {

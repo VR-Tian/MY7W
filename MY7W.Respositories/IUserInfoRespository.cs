@@ -11,6 +11,5 @@ namespace MY7W.Respositories
     public interface IUserInfoRespository: IRespository<MY7W.Domain.Model.UserInfo>
     {
 
-        List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll1(Expression<Func<MY7W.Domain.Model.UserInfo, bool>> where);
     }
 }

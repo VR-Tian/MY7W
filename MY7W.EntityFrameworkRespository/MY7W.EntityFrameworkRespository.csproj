@@ -76,10 +76,6 @@
       <Project>{6de12586-9148-4d37-86bf-c4ba5a26fe60}</Project>
       <Name>MY7W.Respositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MY7W.Tools\MY7W.Tools.csproj">
-      <Project>{c875d17b-e498-4cb1-8880-6d22f1bee960}</Project>
-      <Name>MY7W.Tools</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
