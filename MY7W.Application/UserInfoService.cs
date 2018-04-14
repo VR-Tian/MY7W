@@ -21,15 +21,17 @@ namespace MY7W.Application
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
 
-            orderInfoServer= MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
+            orderInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
 
             userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
         }
 
-        public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll(string id="")
+        public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll(string id = "")
         {
             try
             {
+                //var sqlvalue = userInfoServer.ExecuteQueryBySql<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>("select * from UserInfoes").ToList();
+
                 if (string.IsNullOrEmpty(id))
                 {
                     return userInfoServer.ExecuteQuertAll(x => x.Id != null).ProjectTo<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>().ToList();
@@ -47,15 +49,15 @@ namespace MY7W.Application
         public bool ExecuteInsertModel(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
         {
             try
-            { 
+            {
                 var insetValue = true;
                 var newModel = Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto, MY7W.Domain.Model.UserInfo>(model);
                 newModel.Id = Guid.NewGuid();
                 newModel.Sys_CreatTime = DateTime.Now;
 
-                if(userInfoServer.ExecuteInsetModel(newModel))
+                if (userInfoServer.ExecuteInsetModel(newModel))
                 {
-                    insetValue= orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
+                    insetValue = orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
                 }
                 return insetValue;
             }
@@ -66,7 +68,7 @@ namespace MY7W.Application
         }
 
 
-       
+
         List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> IUserInfoWcfService.ExecuteQuertAll()
         {
             var temp = ExecuteQuertAll();

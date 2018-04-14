@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using System.Data.Entity.Infrastructure;
 
 namespace MY7W.EntityFrameworkRespository
 {
@@ -17,6 +18,12 @@ namespace MY7W.EntityFrameworkRespository
         public UserInfoRespository(MY7W.Datafactory.DatafactoryMamager datafactory) : base(datafactory)
         {
 
+        }
+
+        public DbRawSqlQuery<T> ExecuteQueryBySql<T>(string sql, params SqlParameter[] param)
+        {
+            return this.ExecuteBy<T>(sql, param);
+            //return this.Context.Database.SqlQuery<T>(sql, param);
         }
     }
 }

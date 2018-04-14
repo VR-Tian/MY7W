@@ -64,10 +64,10 @@ namespace MY7W.EntityFrameworkRespository
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public virtual DbRawSqlQuery ExecuteBy(Type t, string sql, params SqlParameter[] parameters)
+        public virtual DbRawSqlQuery<T0> ExecuteBy<T0>(string sql, params SqlParameter[] parameters)
         {
             this.Context.Database.CommandTimeout = 120;
-            return Context.Database.SqlQuery(t, sql, parameters);
+            return Context.Database.SqlQuery<T0>(sql, parameters);
         }
     }
 }
