@@ -14,5 +14,12 @@ namespace MY7W.Respositories
         bool ExecuteInsetModel(T model);
 
         bool ExecuteUpdateModel(T model);
+
+        /// <summary>
+        /// user transation update model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<bool> ExecuteTranUpdate(T model);
     }
 }

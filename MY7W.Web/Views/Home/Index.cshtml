@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<MY7W.Web.Models.UserInfoViewModel>
-@using StackExchange.Profiling
-@MiniProfiler.RenderIncludes()
+
 @{
     Layout = null;
 }
+@using StackExchange.Profiling
+@MiniProfiler.RenderIncludes()
 
 <!DOCTYPE html>
 
@@ -22,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Identification)
             </th>
             <th></th>
@@ -34,13 +38,16 @@
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Identification)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                    @Html.ActionLink("OrderInfoList", "Index", "Order", new { id = item.Id },new AllowHtmlAttribute())
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("OrderInfoList", "Index", "Order", new { id = item.Id }, new AllowHtmlAttribute())
                 </td>
             </tr>
         }

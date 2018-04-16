@@ -1,6 +1,9 @@
-﻿using System;
+﻿using MY7W.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -47,12 +50,12 @@ namespace MY7W.Web.Controllers
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
+        public ActionResult Create(UserInfoViewModel model)
         {
             try
             {
                 // TODO: Add insert logic here
-                if (userService.ExecuteInsertModel(model))
+                if (userService.ExecuteInsertModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)))
                 {
                     return RedirectToAction("Index");
                 }
@@ -66,23 +69,26 @@ namespace MY7W.Web.Controllers
         }
 
         // GET: Home/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var model = AutoMapper.Mapper.Map<UserInfoViewModel>(userService.ExecuteQuertAll(id).FirstOrDefault());
+            return View(model);
         }
 
         // POST: Home/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UserInfoViewModel model)
         {
             try
             {
                 // TODO: Add update logic here
+                Task.Run(async () => await userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)).ContinueWith(a => { }));
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                throw ex;
                 return View();
             }
         }

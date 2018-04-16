@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MY7W.WCFServices;
 using AutoMapper.QueryableExtensions;
+using System.Threading;
+using System.IO;
 
 namespace MY7W.Application
 {
@@ -65,6 +67,16 @@ namespace MY7W.Application
             {
                 throw ex;
             }
+        }
+
+        public async Task<bool> ExcuteUpdateModel(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
+        {
+            var newModel = Mapper.Map<MY7W.Domain.Model.UserInfo>(model);
+
+            Thread.Sleep(int.Parse(newModel.Identification));
+            var temp = await userInfoServer.ExecuteTranUpdate(newModel);
+            //File.Create(@"C:\" + newModel.Identification + ".txt", 0, FileOptions.Asynchronous);
+            return temp;
         }
 
 

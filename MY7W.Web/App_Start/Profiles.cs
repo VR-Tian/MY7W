@@ -26,11 +26,15 @@ namespace MY7W.Web
 
             base.CreateMap<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto, MY7W.Web.Models.UserInfoViewModel>().ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
               .ForMember(dest => dest.Identification, opt => opt.MapFrom(src => src.Identification))
-              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
+            //.ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
 
             base.CreateMap<MY7W.Web.Models.UserInfoViewModel, MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
                .ForMember(dest => dest.Identification, opt => opt.MapFrom(src => src.Identification))
-               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
+            //.ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
 
             base.CreateMap<MY7W.Domain.Model.OrderInfo, MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime))
