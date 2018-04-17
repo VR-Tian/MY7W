@@ -81,8 +81,12 @@ namespace MY7W.Web.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-                Task.Run(async () => await userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)).ContinueWith(a => { }));
+                //TODO: Add update logic here
+                //模拟下载文件不阻塞主线程(思考：下载大资源文件如何断点续传)
+                Task.Run(async () => await userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)).ContinueWith(a =>
+              {
+                  //doto 
+              }));
 
                 return RedirectToAction("Index");
             }

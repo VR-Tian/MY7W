@@ -28,6 +28,11 @@ namespace MY7W.Application
             userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
         }
 
+        public async Task<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>> ExecuteQuertAllAsync(string id = "")
+        {
+           return await Task.Run<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>>(() => { return ExecuteQuertAll(id); });
+        }
+
         public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll(string id = "")
         {
             try
@@ -74,8 +79,7 @@ namespace MY7W.Application
             var newModel = Mapper.Map<MY7W.Domain.Model.UserInfo>(model);
 
             Thread.Sleep(int.Parse(newModel.Identification));
-            var temp = await userInfoServer.ExecuteTranUpdate(newModel);
-            //File.Create(@"C:\" + newModel.Identification + ".txt", 0, FileOptions.Asynchronous);
+            var temp =  await userInfoServer.ExecuteTranUpdate(newModel);
             return temp;
         }
 
