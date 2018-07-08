@@ -9,13 +9,17 @@ using MY7W.WCFServices;
 using AutoMapper.QueryableExtensions;
 using System.Threading;
 using System.IO;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using MY7W.EntityFrameworkRespository;
 
 namespace MY7W.Application
 {
     public class UserInfoService : MY7W.WCFServices.IUserInfoWcfService
     {
-        public MY7W.Respositories.IUserInfoRespository userInfoServer { get; set; }
-        public MY7W.Respositories.IOrderInfoRespository orderInfoServer { get; set; }
+        protected MY7W.Respositories.IUserInfoRespository userInfoServer { get; set; }
+        protected MY7W.Respositories.IOrderInfoRespository orderInfoServer { get; set; }
 
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
@@ -23,9 +27,11 @@ namespace MY7W.Application
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
 
-            orderInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
+            //orderInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
+            //orderInfoServer = new OrderInfoRespository(DatafactoryMamager);
 
-            userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
+            //userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
+            userInfoServer = new UserInfoRespository(DatafactoryMamager);
         }
 
         public async Task<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>> ExecuteQuertAllAsync(string id = "")
@@ -64,12 +70,15 @@ namespace MY7W.Application
 
                 if (userInfoServer.ExecuteInsetModel(newModel))
                 {
-                    insetValue = orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
+                    OrderInfoServices orderInfoServices = new OrderInfoServices();
+                    orderInfoServices.ExecuteInsertModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
+                    //insetValue = orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
                 }
                 return insetValue;
             }
-            catch (Exception ex)
+            catch (DbUpdateException  ex)
             {
+                SqlException sqlEx = ex.InnerException.InnerException as SqlException;
                 throw ex;
             }
         }
@@ -78,7 +87,7 @@ namespace MY7W.Application
         {
             var newModel = Mapper.Map<MY7W.Domain.Model.UserInfo>(model);
 
-            Thread.Sleep(int.Parse(newModel.Identification));
+            //Thread.Sleep(int.Parse(newModel.Identification));
             var temp =  await userInfoServer.ExecuteTranUpdate(newModel);
             return temp;
         }

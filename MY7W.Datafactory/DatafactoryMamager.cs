@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Transactions;
+using System.Web;
 
 namespace MY7W.Datafactory
 {
@@ -16,7 +17,21 @@ namespace MY7W.Datafactory
         {
             if (contextType == ContextType.MY7WEFDB)
             {
-                dbContext = new MY7W.EntityFramework.MY7WModel();
+                var context = HttpContext.Current.Items[ContextType.MY7WEFDB.ToString()] as DbContext;
+                if (context == null)
+                {
+                    context = new MY7W.EntityFramework.MY7WModel();
+                    HttpContext.Current.Items[ContextType.MY7WEFDB.ToString()] = context;
+                }
+                dbContext = context;
+
+                //var context = HttpContext.Current.Cache.Get(ContextType.MY7WEFDB.ToString()) as DbContext;
+                //if (context == null)
+                //{
+                //    context = new MY7W.EntityFramework.MY7WModel();
+                //    HttpContext.Current.Cache.Insert(ContextType.MY7WEFDB.ToString(), context);
+                //}
+                //dbContext = context;
             }
         }
 

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8823BBE9-FCC1-4AA4-9BC4-F2C9884232AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Infrastructure", "2-Infrastructure", "{8823BBE9-FCC1-4AA4-9BC4-F2C9884232AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.EntityFramework", "MY7W.EntityFramework\MY7W.EntityFramework.csproj", "{4FF24F3E-B626-4D83-916C-4B078089EF9D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4EAFD245-6FC9-45E1-8850-E1BEB69A4718}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Presentation", "5-Presentation", "{4EAFD245-6FC9-45E1-8850-E1BEB69A4718}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.Web", "MY7W.Web\MY7W.Web.csproj", "{A39FDFCB-B3B7-4811-9FA8-3279468059DD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoMain", "DoMain", "{5D03EAE8-0E6A-4FB7-B44A-AAEF64E20B73}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-DoMain", "1-DoMain", "{5D03EAE8-0E6A-4FB7-B44A-AAEF64E20B73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.Domain", "MY7W.Domain\MY7W.Domain.csproj", "{62103B4E-A33B-4E82-B576-1B5FA064FA11}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E61D2C0B-F63B-4894-AD7A-C9279342ED73}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Application", "4-Application", "{E61D2C0B-F63B-4894-AD7A-C9279342ED73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.Application", "MY7W.Application\MY7W.Application.csproj", "{40BDCCB7-9250-4695-A998-73A58C4A6FD5}"
 EndProject
@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.Respositories", "MY7W.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.EntityFrameworkRespository", "MY7W.EntityFrameworkRespository\MY7W.EntityFrameworkRespository.csproj", "{1E335B3A-ECD3-46CF-840E-4C7CA5CACB08}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{73A75F03-99EA-41A5-888F-9954A1480506}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Common", "3-Common", "{73A75F03-99EA-41A5-888F-9954A1480506}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MY7W.Datafactory", "MY7W.Datafactory\MY7W.Datafactory.csproj", "{9A80998B-5E86-4299-89FF-2DFAD0FBFAFC}"
 EndProject

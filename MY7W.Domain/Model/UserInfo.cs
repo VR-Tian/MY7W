@@ -14,8 +14,8 @@ namespace MY7W.Domain.Model
         {
             this.OrderInfo = new HashSet<OrderInfo>();
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

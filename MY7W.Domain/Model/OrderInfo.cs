@@ -10,13 +10,14 @@ namespace MY7W.Domain.Model
 {
     public class OrderInfo
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsDelete { get; set; }
         public Guid UserInfoId { get; set; }
-        [ForeignKey("UserInfoId")]
+        //[ForeignKey("UserInfoId")]
         public virtual UserInfo UserInfo { get; set; }
+
     }
 }

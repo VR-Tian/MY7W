@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using MY7W.EntityFrameworkRespository;
 
 namespace MY7W.Application
 {
@@ -16,7 +17,8 @@ namespace MY7W.Application
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
 
-            Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
+            //Server = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
+            Server = new OrderInfoRespository(DatafactoryMamager);
         }
 
         public List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto> ExecuteQuertAll(Guid id)

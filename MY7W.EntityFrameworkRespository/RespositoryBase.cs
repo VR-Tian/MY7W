@@ -50,23 +50,18 @@ namespace MY7W.EntityFrameworkRespository
 
         public async Task<bool> ExecuteTranUpdate(T model)
         {
-            var tran = this.Context.Database.BeginTransaction();
             var temp = typeof(T);
             var modelProperties = temp.GetProperties();
             DBSet.Attach(model);
             foreach (var item in modelProperties)
             {
-                //if (item.PropertyType.IsPrimitive)
-                //{
-                //    continue;
-                //}
+              
                 var modelvalue = item.GetValue(model);
                 if (modelvalue != null && modelvalue.GetType().GenericTypeArguments.Count() == 0)
                 {
                     Context.Entry(model).Property(item.Name).IsModified = true;
                 }
             }
-            tran.Commit();
             var excuteValue = await Context.SaveChangesAsync();
             return excuteValue > 0;
         }
