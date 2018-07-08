@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using MY7W.WCFServices;
 using AutoMapper.QueryableExtensions;
 using System.Threading;
 using System.IO;
@@ -16,7 +15,7 @@ using MY7W.EntityFrameworkRespository;
 
 namespace MY7W.Application
 {
-    public class UserInfoService : MY7W.WCFServices.IUserInfoWcfService
+    public class UserInfoService
     {
         protected MY7W.Respositories.IUserInfoRespository userInfoServer { get; set; }
         protected MY7W.Respositories.IOrderInfoRespository orderInfoServer { get; set; }
@@ -89,14 +88,6 @@ namespace MY7W.Application
 
             //Thread.Sleep(int.Parse(newModel.Identification));
             var temp =  await userInfoServer.ExecuteTranUpdate(newModel);
-            return temp;
-        }
-
-
-
-        List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> IUserInfoWcfService.ExecuteQuertAll()
-        {
-            var temp = ExecuteQuertAll();
             return temp;
         }
     }

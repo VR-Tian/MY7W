@@ -77,10 +77,6 @@
       <Project>{6de12586-9148-4d37-86bf-c4ba5a26fe60}</Project>
       <Name>MY7W.Respositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MY7W.WCFServices\MY7W.WCFServices.csproj">
-      <Project>{4ef3df2b-434d-4953-bbfd-ce306bb34786}</Project>
-      <Name>MY7W.WCFServices</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
