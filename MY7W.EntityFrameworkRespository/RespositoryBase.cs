@@ -12,47 +12,63 @@ namespace MY7W.EntityFrameworkRespository
 {
     public class RespositoryBase<T> where T : class
     {
+        ////TODO:更新部分字段如何实现
 
         /// <summary>
         ///当前实例上下文
         /// </summary>
         protected DbContext Context { get; private set; }
-        protected DbSet<T> DBSet { get; private set; }
+        /// <summary>
+        /// 当前实体类型
+        /// </summary>
+        public DbSet<T> Entitys { get; private set; }
+
         public RespositoryBase(MY7W.Datafactory.DatafactoryMamager datafactory)
         {
-
-            //context = new EntityFramework.MY7WModel();
-            Context = datafactory.dbContext;
-            DBSet = Context.Set<T>();
+            Context = datafactory.DBContext;
+            Entitys = Context.Set<T>();
         }
-        /// <summary>
-        /// Add model
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool ExecuteInsetModel(T model)
+  
+        public int Inset(T model)
         {
-            DBSet.Add(model);
-            return Context.SaveChanges() > 0;
+            Entitys.Add(model);
+            return Context.SaveChanges();
         }
 
-        public virtual IQueryable<T> ExecuteQuertAll(Expression<Func<T, bool>> where)
+        public int Delete(T model)
         {
-            return DBSet.Where(where).AsNoTracking();
+            Entitys.Attach(model);
+            Context.Entry(model).State = System.Data.Entity.EntityState.Deleted;
+            return Context.SaveChanges();
         }
 
-        public bool ExecuteUpdateModel(T model)
+        public int Update(T model)
         {
-            DBSet.Attach(model);
+            Entitys.Attach(model);
             Context.Entry(model).State = System.Data.Entity.EntityState.Modified;
-            return Context.SaveChanges() > 0;
+            return Context.SaveChanges();
+        }
+
+        /// <summary>
+        /// 查询（默认放弃跟踪）
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="IsAsNoTracking">是否放弃跟踪</param>
+        /// <returns></returns>
+        public virtual IQueryable<T> Quert(Expression<Func<T, bool>> where,bool IsAsNoTracking=true)
+        {
+            if (IsAsNoTracking)
+            {
+                return Entitys.Where(where).AsNoTracking();
+            }
+            return Entitys.Where(where);
         }
 
         public async Task<bool> ExecuteTranUpdate(T model)
         {
             var temp = typeof(T);
             var modelProperties = temp.GetProperties();
-            DBSet.Attach(model);
+            Entitys.Attach(model);
             foreach (var item in modelProperties)
             {
               
@@ -71,7 +87,7 @@ namespace MY7W.EntityFrameworkRespository
         /// <returns></returns>
         public virtual IEnumerable<T> GetAll()
         {
-            return DBSet.AsNoTracking();
+            return Entitys.AsNoTracking();
         }
 
         /// <summary>

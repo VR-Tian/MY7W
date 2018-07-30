@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MY7W.Domain.Model
 {
-    public class OrderInfo
+    public class OrderInfo : BaseEntity<Guid>
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-        public DateTime CreateTime { get; set; }
-        public bool IsDelete { get; set; }
+
+        public OrderInfo()
+        {
+            ID = Guid.NewGuid();
+        }
+
         public Guid UserInfoId { get; set; }
-        //[ForeignKey("UserInfoId")]
         public virtual UserInfo UserInfo { get; set; }
 
     }

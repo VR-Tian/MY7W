@@ -23,27 +23,21 @@ namespace MY7W.Application
 
         public List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto> ExecuteQuertAll(Guid id)
         {
-            try
-            {
-                return Server.ExecuteQuertAll(T => T.UserInfoId == id).ProjectTo<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    return Server.Quert(T => T.UserInfoId == id).ProjectTo<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>().ToList();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            return null;
         }
 
 
         public bool ExecuteInsertModel(MY7W.Domain.Model.OrderInfo model)
         {
-            try
-            {
-                return Server.ExecuteInsetModel(model);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new Exception();
         }
 
 
@@ -51,7 +45,7 @@ namespace MY7W.Application
         {
             try
             {
-                return Server.ExecuteQuertAll(where).ToList();
+                return Server.Quert(where).ToList();
             }
             catch (Exception ex)
             {

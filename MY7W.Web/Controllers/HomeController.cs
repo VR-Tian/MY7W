@@ -24,14 +24,12 @@ namespace MY7W.Web.Controllers
                 var allmodel = userService.ExecuteQuertAll();
                 //var orderList = allmodel[0].OrderInfo.ToList();
                 var temp = AutoMapper.Mapper.Map<List<MY7W.Web.Models.UserInfoViewModel>>(allmodel);
-
                 return View(temp);
             }
             catch (Exception ex)
             {
                 throw;
             }
-
         }
 
         // GET: Home/Details/5
@@ -81,8 +79,11 @@ namespace MY7W.Web.Controllers
         {
             try
             {
-                //多线程情况下，HttpAppliaction线程池回收主线程，让更多客户端请求及时被处理，提高吞吐量
-                Task.Run(async () => await userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)));
+                if (userService.ExecuteQuertAll(model.Id).FirstOrDefault()==null)
+                {
+                    return Content("找不到相关数据");
+                }
+                userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model));
 
                 return Redirect("/Home/Index");
             }

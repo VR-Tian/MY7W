@@ -44,7 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOrderInfoRespository.cs" />
+    <Compile Include="ISysRoleAccessMappingRespository.cs" />
     <Compile Include="IRespository.cs" />
+    <Compile Include="ISysAccessRespository.cs" />
+    <Compile Include="ISysRoleRespository.cs" />
+    <Compile Include="ISysUserRoleMappingRespository.cs" />
+    <Compile Include="ISysUserRespository.cs" />
     <Compile Include="IUserInfoRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

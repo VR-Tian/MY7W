@@ -1,6 +1,7 @@
 ﻿namespace MY7W.EntityFramework
 {
     using MY7W.Domain.Model;
+    using MY7W.Domain.RBACModel;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -16,13 +17,18 @@
         public MY7WModel()
             : base("name=MY7WModel")
         {
-
+            //Database.SetInitializer<MY7WModel>(new DropCreateDatabaseAlways<MY7WModel>());
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UserInfoMap());
-            modelBuilder.Configurations.Add(new OrderInfoMap());
-            
+            //modelBuilder.Configurations.Add(new OrderInfoMap());
+            modelBuilder.Configurations.Add(new SysUserMap());
+            ///TODO:注释情况下，如果此模型与另一个模型(正常使用)存在定义引用情况下，仍会在数据库生成对应的表,但迁移表没有记录此模型的定义
+            modelBuilder.Configurations.Add(new SysUserRoleMap());
+            //modelBuilder.Configurations.Add(new SysRoleMap());
+            //modelBuilder.Configurations.Add(new SysRoleAccessMap());
+            //modelBuilder.Configurations.Add(new SysAccessMap());
             base.OnModelCreating(modelBuilder);
 
         }
@@ -31,8 +37,11 @@
         //的详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=390109。
 
         public virtual DbSet<UserInfo> UserInfo { get; set; }
-        public virtual DbSet<OrderInfo> OrderInfo { get; set; }
+        public virtual DbSet<SysUser> SysUser { get; set; }
+        public virtual DbSet<SysUserRoleMapping> SysUserRoleMapping { get; set; }
+        //public virtual DbSet<SysRole> SysRole { get; set; }
+        //public virtual DbSet<OrderInfo> OrderInfo { get; set; }
     }
 
-   
+
 }

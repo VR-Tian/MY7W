@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SysUser" EntityType="Model1.SysUser" />
+          <EntitySet Name="SysRole" EntityType="Model1.SysRole" />
+          <EntitySet Name="SysAccess" EntityType="Model1.SysAccess" />
+          <EntitySet Name="SysUserRoleMapping" EntityType="Model1.SysUserRoleMapping" />
+          <AssociationSet Name="SysUserSysUserRoleMapping" Association="Model1.SysUserSysUserRoleMapping">
+            <End Role="SysUser" EntitySet="SysUser" />
+            <End Role="SysUserRoleMapping" EntitySet="SysUserRoleMapping" />
+          </AssociationSet>
+          <EntitySet Name="SysRoleAccessMapping" EntityType="Model1.SysRoleAccessMapping" />
+          <AssociationSet Name="SysRoleSysUserRoleMapping" Association="Model1.SysRoleSysUserRoleMapping">
+            <End Role="SysRole" EntitySet="SysRole" />
+            <End Role="SysUserRoleMapping" EntitySet="SysUserRoleMapping" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SysUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SysUserRoleMapping" Relationship="Model1.SysUserSysUserRoleMapping" FromRole="SysUser" ToRole="SysUserRoleMapping" />
+        </EntityType>
+        <EntityType Name="SysRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" />
+          <Property Name="CreateTime" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+          <NavigationProperty Name="SysUserRoleMapping" Relationship="Model1.SysRoleSysUserRoleMapping" FromRole="SysRole" ToRole="SysUserRoleMapping" />
+        </EntityType>
+        <EntityType Name="SysAccess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" Nullable="false" />
+          <Property Name="CreateTime" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysUserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SysUser" Relationship="Model1.SysUserSysUserRoleMapping" FromRole="SysUserRoleMapping" ToRole="SysUser" />
+          <Property Name="SysUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+          <NavigationProperty Name="SysRole" Relationship="Model1.SysRoleSysUserRoleMapping" FromRole="SysUserRoleMapping" ToRole="SysRole" />
+          <Property Name="SysRoleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="SysUserSysUserRoleMapping">
+          <End Type="Model1.SysUser" Role="SysUser" Multiplicity="1" />
+          <End Type="Model1.SysUserRoleMapping" Role="SysUserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SysUserRoleMapping">
+              <PropertyRef Name="SysUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SysRoleAccessMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateTime" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="SysRoleSysUserRoleMapping">
+          <End Type="Model1.SysRole" Role="SysRole" Multiplicity="1" />
+          <End Type="Model1.SysUserRoleMapping" Role="SysUserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SysUserRoleMapping">
+              <PropertyRef Name="SysRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

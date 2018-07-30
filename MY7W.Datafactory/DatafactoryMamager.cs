@@ -5,7 +5,10 @@ using System.Web;
 
 namespace MY7W.Datafactory
 {
-    public class DatafactoryMamager: Disposable, IDatabaseFactory
+    /// <summary>
+    /// Db上下文工厂
+    /// </summary>
+    public class DatafactoryMamager
     {
         public enum ContextType
         {
@@ -23,7 +26,7 @@ namespace MY7W.Datafactory
                     context = new MY7W.EntityFramework.MY7WModel();
                     HttpContext.Current.Items[ContextType.MY7WEFDB.ToString()] = context;
                 }
-                dbContext = context;
+                DBContext = context;
 
                 //var context = HttpContext.Current.Cache.Get(ContextType.MY7WEFDB.ToString()) as DbContext;
                 //if (context == null)
@@ -35,73 +38,6 @@ namespace MY7W.Datafactory
             }
         }
 
-        public DbContext dbContext { get; private set; }
-
-        protected override void DisposeCore()
-        {
-            base.DisposeCore();
-            dbContext.Dispose();
-        }
-
-        /// <summary>
-        /// 单元提交
-        /// </summary>
-        public void Commit()
-        {
-            dbContext.SaveChanges();
-        }
-
-        /// <summary>
-        /// 单元提交事物提交
-        /// </summary>
-        public void Commit(bool isTransaction)
-        {
-            #region 事物提交
-            using (TransactionScope scope = new TransactionScope())
-            {
-                this.Commit();
-                //dataContext.SaveChanges();
-                scope.Complete();
-            }
-            #endregion
-        }
-      
-
-    }
-    public interface IDatabaseFactory: IDisposable
-    {
-        void Commit();
-        void Commit(bool isTransaction);
-    }
-
-
-    public class Disposable : IDisposable
-    {
-        private bool isDisposed;
-
-        ~Disposable()
-        {
-            Dispose(true);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        private void Dispose(bool disposing)
-        {
-            if (!isDisposed && disposing)
-            {
-                DisposeCore();
-            }
-
-            isDisposed = true;
-        }
-
-        protected virtual void DisposeCore()
-        {
-
-        }
+        public DbContext DBContext { get; private set; }
     }
 }

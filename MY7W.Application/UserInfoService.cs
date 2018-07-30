@@ -1,55 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using System.Threading;
-using System.IO;
-using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using MY7W.EntityFrameworkRespository;
+using MY7W.ModelDto.UseInfoDto;
+using System.Data.Entity;
+using System.Xml;
 
 namespace MY7W.Application
 {
     public class UserInfoService
     {
-        protected MY7W.Respositories.IUserInfoRespository userInfoServer { get; set; }
-        protected MY7W.Respositories.IOrderInfoRespository orderInfoServer { get; set; }
+        protected MY7W.Respositories.IUserInfoRespository UserInfoRespository { get; set; }
+        protected MY7W.Respositories.IOrderInfoRespository OrderInfoRespository { get; set; }
+        public MY7W.Respositories.ISysUserRespository SysUserRespository { get; set; }
 
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
-
-            //orderInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.OrderInfoRepository) as MY7W.Respositories.IOrderInfoRespository;
-            //orderInfoServer = new OrderInfoRespository(DatafactoryMamager);
-
-            //userInfoServer = MY7W.RepositoryFactory.RepositoryFactory.Create(DatafactoryMamager, MY7W.RepositoryFactory.RepositoryFactory.RepositoryType.UserInfoRepository) as MY7W.Respositories.IUserInfoRespository;
-            userInfoServer = new UserInfoRespository(DatafactoryMamager);
+            SysUserRespository = new SysUserRespository(DatafactoryMamager);
+            UserInfoRespository = new UserInfoRespository(DatafactoryMamager);
         }
 
         public async Task<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>> ExecuteQuertAllAsync(string id = "")
         {
-           return await Task.Run<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>>(() => { return ExecuteQuertAll(id); });
+            return await Task.Run<List<UserInfo_Alliaction_Dto>>(() => { return ExecuteQuertAll(id); });
         }
 
+        /// <summary>
+        /// 根据条件查询实体（未解决动态查询）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll(string id = "")
         {
             try
             {
-                //var sqlvalue = userInfoServer.ExecuteQueryBySql<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>("select * from UserInfoes").ToList();
-
                 if (string.IsNullOrEmpty(id))
                 {
-                    return userInfoServer.ExecuteQuertAll(x => x.Id != null).ProjectTo<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>().ToList();
+                    CreateEFModelEdmxFile();
+
+                    return UserInfoRespository.Quert(x => x.ID != null).ProjectTo<UserInfo_Alliaction_Dto>().ToList();
                 }
                 Guid modelid = Guid.Parse(id);
-                return userInfoServer.ExecuteQuertAll(x => x.Id == modelid).ProjectTo<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>().ToList();
+                return UserInfoRespository.Quert(x => x.ID == modelid).ProjectTo<UserInfo_Alliaction_Dto>().ToList();
             }
             catch (Exception ex)
             {
@@ -57,38 +58,49 @@ namespace MY7W.Application
             }
         }
 
-
-        public bool ExecuteInsertModel(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
+        public bool ExecuteInsertModel(UserInfo_Alliaction_Dto model)
         {
             try
             {
-                var insetValue = true;
-                var newModel = Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto, MY7W.Domain.Model.UserInfo>(model);
-                newModel.Id = Guid.NewGuid();
-                newModel.Sys_CreatTime = DateTime.Now;
-
-                if (userInfoServer.ExecuteInsetModel(newModel))
-                {
-                    OrderInfoServices orderInfoServices = new OrderInfoServices();
-                    orderInfoServices.ExecuteInsertModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
-                    //insetValue = orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
-                }
+                var insetValue = false;
+                var newModel = Mapper.Map<UserInfo_Alliaction_Dto, MY7W.Domain.Model.UserInfo>(model);
+                newModel.ID = Guid.NewGuid();
+                newModel.CreateTime = DateTime.Now;
+                insetValue = UserInfoRespository.Inset(newModel) > 0;
+            
+                //if (userInfoServer.Inset(newModel))
+                //{
+                //    OrderInfoServices orderInfoServices = new OrderInfoServices();
+                //    orderInfoServices.ExecuteInsertModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
+                //    //insetValue = orderInfoServer.ExecuteInsetModel(new Domain.Model.OrderInfo() { UserInfoId = newModel.Id, Id = Guid.NewGuid(), CreateTime = DateTime.Now });
+                //}
                 return insetValue;
             }
-            catch (DbUpdateException  ex)
+            catch (Exception ex)
             {
-                SqlException sqlEx = ex.InnerException.InnerException as SqlException;
                 throw ex;
             }
         }
 
-        public async Task<bool> ExcuteUpdateModel(MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto model)
+        public bool ExcuteUpdateModel(UserInfo_Alliaction_Dto model)
         {
             var newModel = Mapper.Map<MY7W.Domain.Model.UserInfo>(model);
+            return UserInfoRespository.Update(newModel) > 0;
 
-            //Thread.Sleep(int.Parse(newModel.Identification));
-            var temp =  await userInfoServer.ExecuteTranUpdate(newModel);
-            return temp;
+        }
+
+        /// <summary>
+        /// 创建EF Code First 模式下的映射文件
+        /// </summary>
+        private void CreateEFModelEdmxFile()
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+
+            using (XmlWriter writer = XmlWriter.Create(@"C:\Model.edmx", settings))
+            {
+                EdmxWriter.WriteEdmx(DatafactoryMamager.DBContext, writer);
+            }
         }
     }
 }

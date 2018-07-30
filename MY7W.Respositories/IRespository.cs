@@ -7,19 +7,39 @@ using System.Threading.Tasks;
 
 namespace MY7W.Respositories
 {
+    /// <summary>
+    /// 基本仓储接口定义
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRespository<T> where T : class
     {
-        IQueryable<T> ExecuteQuertAll(Expression<Func<T, bool>> where);
-
-        bool ExecuteInsetModel(T model);
-
-        bool ExecuteUpdateModel(T model);
+        /// <summary>
+        /// 查询实体
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        IQueryable<T> Quert(Expression<Func<T, bool>> where, bool IsAsNoTracking = true);
 
         /// <summary>
-        /// user transation update model
+        /// 新增实体
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<bool> ExecuteTranUpdate(T model);
+        int Inset(T model);
+
+        /// <summary>
+        /// 更新实体
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        int Update(T model);
+
+
+        /// <summary>
+        /// 删除实体
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
+        int Delete(T Model);
     }
 }

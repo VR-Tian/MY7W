@@ -45,9 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseEntity.cs" />
     <Compile Include="Model\OrderInfo.cs" />
     <Compile Include="Model\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RBACModel\SysAccess.cs" />
+    <Compile Include="RBACModel\SysRole.cs" />
+    <Compile Include="RBACModel\SysRoleAccessMapping.cs" />
+    <Compile Include="RBACModel\SysUser.cs" />
+    <Compile Include="RBACModel\SysUserRoleMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
