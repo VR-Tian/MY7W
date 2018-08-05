@@ -8,7 +8,7 @@ using AutoMapper.QueryableExtensions;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using MY7W.EntityFrameworkRespository;
-using MY7W.ModelDto.UseInfoDto;
+using MY7W.ModelDto.Dto;
 using System.Data.Entity;
 using System.Xml;
 
@@ -29,9 +29,9 @@ namespace MY7W.Application
             UserInfoRespository = new UserInfoRespository(DatafactoryMamager);
         }
 
-        public async Task<List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>> ExecuteQuertAllAsync(string id = "")
+        public async Task<List<MY7W.ModelDto.Dto.UserInfoDto>> ExecuteQuertAllAsync(string id = "")
         {
-            return await Task.Run<List<UserInfo_Alliaction_Dto>>(() => { return ExecuteQuertAll(id); });
+            return await Task.Run<List<UserInfoDto>>(() => { return ExecuteQuertAll(id); });
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace MY7W.Application
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto> ExecuteQuertAll(string id = "")
+        public List<MY7W.ModelDto.Dto.UserInfoDto> ExecuteQuertAll(string id = "")
         {
             try
             {
@@ -47,10 +47,16 @@ namespace MY7W.Application
                 {
                     CreateEFModelEdmxFile();
 
-                    return UserInfoRespository.Quert(x => x.ID != null).ProjectTo<UserInfo_Alliaction_Dto>().ToList();
+                    return UserInfoRespository.Quert(t => t.ID != null).ProjectTo<UserInfoDto>().ToList();
                 }
                 Guid modelid = Guid.Parse(id);
-                return UserInfoRespository.Quert(x => x.ID == modelid).ProjectTo<UserInfo_Alliaction_Dto>().ToList();
+                var quertValue = UserInfoRespository.Quert(t => t.ID == modelid);
+                //foreach (var item in quertValue.ToList())
+                //{
+                //    var tempsys = item.SysUser;
+                //}
+                var listValie = quertValue.Include(t => t.SysUser).ProjectTo<UserInfoDto>().ToList();
+                return listValie;
             }
             catch (Exception ex)
             {
@@ -58,14 +64,18 @@ namespace MY7W.Application
             }
         }
 
-        public bool ExecuteInsertModel(UserInfo_Alliaction_Dto model)
+        public bool ExecuteInsertModel(UserInfoDto model)
         {
             try
             {
                 var insetValue = false;
-                var newModel = Mapper.Map<UserInfo_Alliaction_Dto, MY7W.Domain.Model.UserInfo>(model);
+                var newModel = Mapper.Map<UserInfoDto, MY7W.Domain.Model.UserInfo>(model);
                 newModel.ID = Guid.NewGuid();
                 newModel.CreateTime = DateTime.Now;
+                
+
+                newModel.SysUser = new Domain.RBACModel.SysUser() {  ID= Guid.NewGuid(), CreateTime = DateTime.Now, Name = newModel.Name };
+
                 insetValue = UserInfoRespository.Inset(newModel) > 0;
             
                 //if (userInfoServer.Inset(newModel))
@@ -82,9 +92,10 @@ namespace MY7W.Application
             }
         }
 
-        public bool ExcuteUpdateModel(UserInfo_Alliaction_Dto model)
+        public bool ExcuteUpdateModel(UserInfoDto model)
         {
             var newModel = Mapper.Map<MY7W.Domain.Model.UserInfo>(model);
+            //TODO：实现更新个别字段
             return UserInfoRespository.Update(newModel) > 0;
 
         }

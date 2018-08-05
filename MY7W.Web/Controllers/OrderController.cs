@@ -16,7 +16,7 @@ namespace MY7W.Web.Controllers
         // GET: Order
         public ActionResult Index(Guid id)
         {
-          var temp=  AutoMapper.Mapper.Map<List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto>>(oderService.ExecuteQuertAll(id));
+          var temp=  AutoMapper.Mapper.Map<List<MY7W.ModelDto.Dto.OrderInfoDto>>(oderService.ExecuteQuertAll(id));
             return View(temp);
         }
 

@@ -22,8 +22,8 @@ namespace MY7W.EntityFramework
             #region  映射与主键表的外键关系：
             //this.HasRequired(t => t.UserInfo).WithRequiredDependent();
 
-            this.HasMany(t => t.SysUserRoleMappings).
-               WithRequired().HasForeignKey(t => t.SysUserID);
+            //this.HasMany(t => t.SysUserRoleMappings).
+            //   WithRequired().HasForeignKey(t => t.SysUserID);
             #endregion
 
         }

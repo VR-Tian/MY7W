@@ -21,7 +21,7 @@ namespace MY7W.Application
             Server = new OrderInfoRespository(DatafactoryMamager);
         }
 
-        public List<MY7W.ModelDto.UseInfoDto.OrderInfo_Application_Dto> ExecuteQuertAll(Guid id)
+        public List<MY7W.ModelDto.Dto.OrderInfoDto> ExecuteQuertAll(Guid id)
         {
             //try
             //{

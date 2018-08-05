@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MY7W.ModelDto.UseInfoDto
+namespace MY7W.ModelDto.Dto
 {
-    public class OrderInfo_Application_Dto
+    public class OrderInfoDto
     {
         //public OrderInfo_Application_Dto()
         //{

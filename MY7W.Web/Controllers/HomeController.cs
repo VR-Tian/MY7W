@@ -53,7 +53,7 @@ namespace MY7W.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
-                if (userService.ExecuteInsertModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model)))
+                if (userService.ExecuteInsertModel(AutoMapper.Mapper.Map<MY7W.ModelDto.Dto.UserInfoDto>(model)))
                 {
                     return RedirectToAction("Index");
                 }
@@ -83,7 +83,7 @@ namespace MY7W.Web.Controllers
                 {
                     return Content("找不到相关数据");
                 }
-                userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.UseInfoDto.UserInfo_Alliaction_Dto>(model));
+                userService.ExcuteUpdateModel(AutoMapper.Mapper.Map<MY7W.ModelDto.Dto.UserInfoDto>(model));
 
                 return Redirect("/Home/Index");
             }

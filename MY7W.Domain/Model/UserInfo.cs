@@ -13,7 +13,7 @@ namespace MY7W.Domain.Model
     {
         public UserInfo()
         {
-            ID = Guid.NewGuid();
+            SysUser = new SysUser();
         }
 
         public string Name { get; set; }

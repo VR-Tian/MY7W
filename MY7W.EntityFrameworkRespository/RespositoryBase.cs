@@ -59,7 +59,8 @@ namespace MY7W.EntityFrameworkRespository
         {
             if (IsAsNoTracking)
             {
-                return Entitys.Where(where).AsNoTracking();
+                var value= Entitys.Where(where).AsNoTracking();
+                return value;
             }
             return Entitys.Where(where);
         }

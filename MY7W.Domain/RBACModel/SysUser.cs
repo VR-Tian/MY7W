@@ -13,6 +13,6 @@ namespace MY7W.Domain.RBACModel
 
         //public virtual UserInfo UserInfo { get; set; }
 
-        public virtual ICollection<SysUserRoleMapping> SysUserRoleMappings { get; set; }
+        //public virtual ICollection<SysUserRoleMapping> SysUserRoleMappings { get; set; }
     }
 }
