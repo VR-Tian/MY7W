@@ -17,15 +17,12 @@ namespace MY7W.Application
     public class UserInfoService
     {
         protected MY7W.Respositories.IUserInfoRespository UserInfoRespository { get; set; }
-        protected MY7W.Respositories.IOrderInfoRespository OrderInfoRespository { get; set; }
-        public MY7W.Respositories.ISysUserRespository SysUserRespository { get; set; }
 
         private MY7W.Datafactory.DatafactoryMamager DatafactoryMamager { get; set; }
         public UserInfoService()
         {
             DatafactoryMamager = new Datafactory.DatafactoryMamager(MY7W.Datafactory.DatafactoryMamager.ContextType.MY7WEFDB);
             //Server = new MY7W.EntityFrameworkRespository.UserInfoRespository(DatafactoryMamager);//依赖具体实现
-            SysUserRespository = new SysUserRespository(DatafactoryMamager);
             UserInfoRespository = new UserInfoRespository(DatafactoryMamager);
         }
 
@@ -33,9 +30,30 @@ namespace MY7W.Application
         {
             return await Task.Run<List<UserInfoDto>>(() => { return ExecuteQuertAll(id); });
         }
+        public MY7W.ModelDto.Dto.UserInfoDto ExecuteQuertAll(UserInfoDto userInfoDto)
+        {
+            try
+            {
+                var quertValue = UserInfoRespository.Query(t => t.Name == userInfoDto.Name && t.Password == userInfoDto.Password && t.State == false).ProjectTo<UserInfoDto>().FirstOrDefault();
+
+                return quertValue;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<SysRoleDto> ExecuteQuertRoleOfUser(Guid uerid)
+        {
+            var queryExpression = UserInfoRespository.Query(t => t.ID == uerid && t.State != false).Select(t => t.SysUser);
+            var queryResult = (from u in queryExpression
+                               select u.SysUserRoleMappings.Select(t => t.SysRole).Where(t => t.State != false)).ProjectTo<SysRoleDto>().ToList();
+            return queryResult;
+        }
 
         /// <summary>
-        /// 根据条件查询实体（未解决动态查询）
+        /// 根据id条件查询实体（未解决动态查询）
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -45,17 +63,16 @@ namespace MY7W.Application
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    CreateEFModelEdmxFile();
+                    //CreateEFModelEdmxFile();
 
-                    return UserInfoRespository.Quert(t => t.ID != null).ProjectTo<UserInfoDto>().ToList();
+                    return UserInfoRespository.Query(t => t.ID != null).ProjectTo<UserInfoDto>().ToList();
                 }
+                //SysUserServices userServices = new SysUserServices();
+
                 Guid modelid = Guid.Parse(id);
-                var quertValue = UserInfoRespository.Quert(t => t.ID == modelid);
-                //foreach (var item in quertValue.ToList())
-                //{
-                //    var tempsys = item.SysUser;
-                //}
-                var listValie = quertValue.Include(t => t.SysUser).ProjectTo<UserInfoDto>().ToList();
+                var quertValue = UserInfoRespository.Query(t => t.ID == modelid);
+                var listValie = quertValue.ProjectTo<UserInfoDto>().ToList();//在ProjectTo拓展方法里，会出现贪婪模式，把实体出现的导航属性都进行加载，有待解决。
+
                 return listValie;
             }
             catch (Exception ex)
@@ -72,12 +89,12 @@ namespace MY7W.Application
                 var newModel = Mapper.Map<UserInfoDto, MY7W.Domain.Model.UserInfo>(model);
                 newModel.ID = Guid.NewGuid();
                 newModel.CreateTime = DateTime.Now;
-                
 
-                newModel.SysUser = new Domain.RBACModel.SysUser() {  ID= Guid.NewGuid(), CreateTime = DateTime.Now, Name = newModel.Name };
 
-                insetValue = UserInfoRespository.Inset(newModel) > 0;
-            
+                newModel.SysUser = new Domain.RBACModel.SysUser() { ID = Guid.NewGuid(), CreateTime = DateTime.Now, Name = newModel.Name };
+
+                insetValue = UserInfoRespository.Insert(newModel) > 0;
+
                 //if (userInfoServer.Inset(newModel))
                 //{
                 //    OrderInfoServices orderInfoServices = new OrderInfoServices();
@@ -105,13 +122,18 @@ namespace MY7W.Application
         /// </summary>
         private void CreateEFModelEdmxFile()
         {
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-
-            using (XmlWriter writer = XmlWriter.Create(@"C:\Model.edmx", settings))
+            //异步并不能解决并发问题（同时操作一个文件）
+            Task.Run(() =>
             {
-                EdmxWriter.WriteEdmx(DatafactoryMamager.DBContext, writer);
-            }
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+
+                using (XmlWriter writer = XmlWriter.Create(@"C:\Model.edmx", settings))
+                {
+                    EdmxWriter.WriteEdmx(DatafactoryMamager.DBContext, writer);
+                }
+            });
+
         }
     }
 }

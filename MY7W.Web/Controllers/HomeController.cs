@@ -1,4 +1,5 @@
-﻿using MY7W.Web.Models;
+﻿using MY7W.Web.App_Start;
+using MY7W.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace MY7W.Web.Controllers
 {
+    [RBACAuth]
     public class HomeController : Controller
     {
         private MY7W.Application.UserInfoService userService;
@@ -16,13 +18,13 @@ namespace MY7W.Web.Controllers
         {
             userService = new Application.UserInfoService();
         }
+        [AllowAnonymous]
         // GET: Home
         public ActionResult Index()
         {
             try
             {
                 var allmodel = userService.ExecuteQuertAll();
-                //var orderList = allmodel[0].OrderInfo.ToList();
                 var temp = AutoMapper.Mapper.Map<List<MY7W.Web.Models.UserInfoViewModel>>(allmodel);
                 return View(temp);
             }
@@ -36,10 +38,10 @@ namespace MY7W.Web.Controllers
         public ActionResult Details(string name)
         {
             //var temp = userService.ExecuteQuertAll(t => t.Name == name).FirstOrDefault();
-
             return View();
         }
 
+        [AllowAnonymous]
         // GET: Home/Create
         public ActionResult Create()
         {
@@ -47,6 +49,7 @@ namespace MY7W.Web.Controllers
         }
 
         // POST: Home/Create
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Create(UserInfoViewModel model)
         {

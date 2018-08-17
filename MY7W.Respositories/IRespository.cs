@@ -18,14 +18,14 @@ namespace MY7W.Respositories
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
-        IQueryable<T> Quert(Expression<Func<T, bool>> where, bool IsAsNoTracking = true);
+        IQueryable<T> Query(Expression<Func<T, bool>> where, bool IsAsNoTracking = true);
 
         /// <summary>
         /// 新增实体
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        int Inset(T model);
+        int Insert(T model);
 
         /// <summary>
         /// 更新实体

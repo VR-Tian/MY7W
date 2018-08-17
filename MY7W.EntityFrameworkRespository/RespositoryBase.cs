@@ -29,7 +29,7 @@ namespace MY7W.EntityFrameworkRespository
             Entitys = Context.Set<T>();
         }
   
-        public int Inset(T model)
+        public int Insert(T model)
         {
             Entitys.Add(model);
             return Context.SaveChanges();
@@ -55,7 +55,7 @@ namespace MY7W.EntityFrameworkRespository
         /// <param name="where">条件</param>
         /// <param name="IsAsNoTracking">是否放弃跟踪</param>
         /// <returns></returns>
-        public virtual IQueryable<T> Quert(Expression<Func<T, bool>> where,bool IsAsNoTracking=true)
+        public virtual IQueryable<T> Query(Expression<Func<T, bool>> where,bool IsAsNoTracking=true)
         {
             if (IsAsNoTracking)
             {

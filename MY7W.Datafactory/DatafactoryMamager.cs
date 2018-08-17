@@ -34,7 +34,7 @@ namespace MY7W.Datafactory
                 //    context = new MY7W.EntityFramework.MY7WModel();
                 //    HttpContext.Current.Cache.Insert(ContextType.MY7WEFDB.ToString(), context);
                 //}
-                //dbContext = context;
+                //DBContext = context;
             }
         }
 

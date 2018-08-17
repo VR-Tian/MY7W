@@ -115,7 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Profiles.cs" />
+    <Compile Include="App_Start\RBACAuthAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -133,6 +135,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\CreateRole.cshtml" />
+    <Content Include="Views\Account\RoleIndex.cshtml" />
+    <Content Include="Views\Account\ShowRoleToUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

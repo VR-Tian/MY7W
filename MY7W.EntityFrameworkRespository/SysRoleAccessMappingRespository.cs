@@ -11,9 +11,9 @@ using AutoMapper.QueryableExtensions;
 
 namespace MY7W.EntityFrameworkRespository
 {
-    public class RoleAccessMappingRespository : RespositoryBase<MY7W.Domain.RBACModel.SysRoleAccessMapping>, MY7W.Respositories.ISysRoleAccessMappingRespository
+    public class SysRoleAccessMappingRespository : RespositoryBase<MY7W.Domain.RBACModel.SysRoleAccessMapping>, MY7W.Respositories.ISysRoleAccessMappingRespository
     {
-        public RoleAccessMappingRespository(DatafactoryMamager datafactory) : base(datafactory)
+        public SysRoleAccessMappingRespository(DatafactoryMamager datafactory) : base(datafactory)
         {
 
         }

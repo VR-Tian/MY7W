@@ -24,6 +24,7 @@ namespace MY7W.EntityFramework
 
             //this.HasMany(t => t.SysUserRoleMappings).
             //   WithRequired().HasForeignKey(t => t.SysUserID);
+
             #endregion
 
         }

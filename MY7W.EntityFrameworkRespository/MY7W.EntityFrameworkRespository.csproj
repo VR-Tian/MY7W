@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SysAccessRespositor.cs" />
-    <Compile Include="RoleAccessMappingRespository.cs" />
+    <Compile Include="SysRoleAccessMappingRespository.cs" />
     <Compile Include="SysRoleRespository.cs" />
     <Compile Include="SysUserRoleMappingRespository.cs" />
     <Compile Include="SysUserRespository.cs" />

@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\SysAccessDto.cs" />
+    <Compile Include="Dto\SysRoleAccessMapDto.cs" />
+    <Compile Include="Dto\SysRoleDto.cs" />
     <Compile Include="Dto\SysUserDto.cs" />
+    <Compile Include="Dto\SysUserRoleMapDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dto\OrderInfoDto.cs" />
     <Compile Include="Dto\UserInfoDto.cs" />

@@ -23,17 +23,26 @@ namespace MY7W.EntityFramework
             this.Property(t => t.State).HasColumnName("State");
 
 
-            #region 为了让权限模块独立出来，在主体类型建立单向一对一关系
-            //当在主体类型定义依赖类型的导航属性，且不配置任何关系,将默认使用以下关系
-            //this.HasOptional(t => t.SysUser).WithMany();
+            #region 映射关系
 
-            //基于依赖对象的外键字段单向一对一（EF的edmx文件显示模型是一对一,数据库的设计却是一对多,这时需要单独把外键字段设置唯一）
-            //疑惑：不允许主体类型单独持久化，错误显示：Entities in 'MY7WModel.UserInfo' participate in the 'UserInfo_SysUser' relationship. 0 related 'UserInfo_SysUser_Target' were found. 1 'UserInfo_SysUser_Target' is expected.
+            //单向一对一共享主键ID的配置；
+            //this.HasRequired(t => t.SysUser).WithRequiredPrincipal()
+
+
+            //通过外键关联配置有如下两种方式：
+
+            //1：基于依赖对象的外键字段单向一对一（EF的edmx文件显示模型是一对一,数据库的设计却是一对多,这时需要单独把外键字段设置唯一）
             //this.HasRequired(t => t.SysUser).WithRequiredPrincipal().Map(t => t.MapKey("UserID"));
+            //疑惑：不允许主体类型单独持久化，这是EF抛出异常：Entities in 'MY7WModel.UserInfo' participate in the 'UserInfo_SysUser' relationship. 0 related 'UserInfo_SysUser_Target' were found. 1 'UserInfo_SysUser_Target' is expected.
+            //思考：为了让权限模块独立出来，在主体类型建立单向一对一关系，以上的配置会导致外键ID生成在外键表中，若在依赖实体配置关系，则需要定义主体类型的导航属性，是否会本末倒置。
 
-            //参考https://www.cnblogs.com/CreateMyself/p/4742097.html 
-            //基于主体对象的外键字段单向一对一（EF的edmx文件显示模型是一对多（数据库关系一致),这时需要单独把外键字段设置唯一，这时数据库的关系会变成一对一）
-            this.HasRequired(t => t.SysUser).WithMany().HasForeignKey(t => t.SysUserID);
+            //2：参考https://www.cnblogs.com/CreateMyself/p/4742097.html 
+            //基于主体对象的外键字段单向一对一（EF的edmx文件显示模型是一对多（数据库关系一致),这时需要单独把外键字段设置唯一，则数据库的关系会变成一对一）
+            this.HasRequired(t => t.SysUser).WithMany().HasForeignKey(t => t.SysUserID);//外键字段设置唯一
+
+
+            //总结：使用第一种方式MapKey映射外键的话，此外键字段是不能被映射到实体；若采用第二种，则HasRequired函数里的类型成为主体类型，也就是主键表。
+
 
             //基于共享主键单向一对一或零
             //this.HasOptional(t => t.SysUser).WithRequired();

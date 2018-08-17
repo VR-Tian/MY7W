@@ -45,7 +45,7 @@ namespace MY7W.Application
         {
             try
             {
-                return Server.Quert(where).ToList();
+                return Server.Query(where).ToList();
             }
             catch (Exception ex)
             {

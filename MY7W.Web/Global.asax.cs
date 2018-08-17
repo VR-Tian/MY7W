@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MY7W.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,7 @@ namespace MY7W.Web
         {
             //MiniProfiler.Stop();
         }
+
+         
     }
 }

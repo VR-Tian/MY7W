@@ -49,6 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OrderInfoServices.cs" />
+    <Compile Include="SysAccessServices.cs" />
+    <Compile Include="SysRoleAccessMappingServices.cs" />
+    <Compile Include="SysRoleServices.cs" />
+    <Compile Include="SysUserRoleMappingServices.cs" />
+    <Compile Include="SysUserServices.cs" />
     <Compile Include="UserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

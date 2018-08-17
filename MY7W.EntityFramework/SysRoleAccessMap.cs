@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MY7W.EntityFramework
 {
-    public class SysRoleAccessMap:EntityTypeConfiguration<SysRoleAccessMapping>
+    public class SysRoleAccessMap : EntityTypeConfiguration<SysRoleAccessMapping>
     {
         public SysRoleAccessMap()
         {
@@ -19,9 +19,10 @@ namespace MY7W.EntityFramework
             this.Property(t => t.State).HasColumnName("State");
 
             #region 一对多映射关系
-            //this.HasRequired(t => t.SysRole).
-            //     WithMany(t => t.SysRoleAccessMappings).
-            //      HasForeignKey(t => t.SysRoleID).WillCascadeOnDelete();
+            this.HasRequired(t => t.SysRole).WithMany().HasForeignKey(t => t.SysRoleID).WillCascadeOnDelete();
+
+            this.HasRequired(t => t.SysAccess).WithMany().HasForeignKey(t => t.SysAccessID).WillCascadeOnDelete();
+
             #endregion
         }
     }

@@ -48,6 +48,7 @@
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     @Html.ActionLink("OrderInfoList", "Index", "Order", new { id = item.Id }, new AllowHtmlAttribute())
+                    @Html.ActionLink("角色分配", "ShowRoleToUser", "Account", new { id = item.Id }, new AllowHtmlAttribute())
                 </td>
             </tr>
         }

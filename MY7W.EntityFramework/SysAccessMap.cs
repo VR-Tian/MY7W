@@ -15,15 +15,15 @@ namespace MY7W.EntityFramework
             this.ToTable("SysAccess");
             this.HasKey(t => t.ID);
             this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.SysRoleAccessMappingID).HasColumnName("SysRoleAccessMappingID");
+            this.Property(t => t.URL).HasColumnName("URL");
             this.Property(t => t.CreateTime).HasColumnName("CreateTime");
             this.Property(t => t.State).HasColumnName("State");
 
 
             #region 一对多映射关系
-            this.HasRequired(t => t.SysRoleAccessMapping).
-                  WithMany(t => t.SysAccesses).
-                   HasForeignKey(t => t.SysRoleAccessMappingID).WillCascadeOnDelete();
+            //this.HasRequired(t => t.SysRoleAccessMapping).
+            //      WithMany(t => t.SysAccesses).
+            //       HasForeignKey(t => t.SysRoleAccessMappingID).WillCascadeOnDelete();
             #endregion
         }
 

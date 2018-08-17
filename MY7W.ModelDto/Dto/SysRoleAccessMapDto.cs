@@ -4,18 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MY7W.Domain.RBACModel
+namespace MY7W.ModelDto.Dto
 {
-    public class SysRoleAccessMapping : BaseEntity<Guid>
+    public class SysRoleAccessMapDto
     {
+        public Guid Id { get; set; }
         public Guid SysRoleID { get; set; }
-
-        public virtual SysRole SysRole { get; set; }
-
         public Guid SysAccessID { get; set; }
-
-        public virtual SysAccess SysAccess { get; set; }
-
-
+        public bool State { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }
